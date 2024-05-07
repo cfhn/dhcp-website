@@ -45,6 +45,11 @@
                 font-size: 1em;
                 font-weight: normal;
             }
+
+            #text-video {
+                white-space: nowrap;
+                overflow-x: auto;
+            }
         </style>
         <script type="application/javascript">
             window.onload = () => {
@@ -94,7 +99,7 @@
                     ctx.drawImage(video, 0, 0, width, height);
                     renderText(textVideo, ctx);
     
-                    if (!textVideo.matches(':hover')) {
+                    if (matchMedia('(hover:hover)').matches && !textVideo.matches(':hover')) {
                         // dumb hack for chrome which does not reliably throw
                         // mouseleave for elements that are constantly updated...
                         running = false;
@@ -103,12 +108,15 @@
     
                     if (running)
                         frame();
-                })
+                });
     
-                video.addEventListener('loadeddata', () => frame());
-                if (video.readyState >= 2)
+                textVideo.addEventListener('click', () => {
+                    if (running)
+                        return;
+                    running = true;
+                    video.play();
                     frame();
-    
+                });
                 textVideo.addEventListener('mouseenter', () => {
                     if (running)
                         return;
@@ -116,6 +124,7 @@
                     video.play();
                     frame();
                 });
+
                 textVideo.addEventListener('mouseleave', (e) => {
                     if (!running)
                         return;
