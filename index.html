@@ -13,12 +13,23 @@
                 font-size: 10.5pt;
                 max-width: 80ch;
                 text-align: left;
-                padding-left: 80px;
-                padding-right: 40px;
+                padding: 0 40px;
             }
 
-            body p {
-                margin-left: 2ch;
+            body section {
+                margin-left: 3ch;
+            }
+
+            body ul {
+                list-style-type: none;
+                margin-left: 0;
+                padding-left: 0;
+                display: flex;
+                flex-direction: column;
+                gap: 1em;
+            }
+            ul ul {
+                margin-left: 3ch;
             }
 
             h1, h2 {
@@ -26,11 +37,10 @@
                 font-family: monospace;
                 text-align: left;
             }
-
             h1 {
-                font-size: 1.5em;
+                font-size: 1em;
+                text-align: center;
             }
-
             h2 {
                 font-size: 1em;
                 font-weight: normal;
@@ -120,13 +130,17 @@
             [
             <a href="https://codeforheilbronn.de" title="Code for Heilbronn">CFHN</a>
             ] [
+            <a href="https://tickets.dhcp.cfhn.it" title="Tickets">TICKETS</a>
+            ] [
+            <a href="https://talks.dhcp.cfhn.it" title="Call for Participation">CFP</a>
+            ] [
+            <a href="https://chaos.social/@cfhn" title="@cfhn@chaos.social">MASTO</a>
+            ] [
+            <a href="https://wiki.dhcp.cfhn.it" title="Wiki">WIKI</a>
+            ] [
             <a href="https://codeforheilbronn.de/verein-impressum" title="Impressum">IMPRESSUM</a>
             ] [
-            <a href="https://codeforheilbronn.de/verein-datenschutz" title="DATENSCHUTZ">DATENSCHUTZ</a>
-            ] [
-            <a href="https://tickets.dhcp.cfhn.it" title="Tickets"> TICKETS</a>
-            ] [
-            <a href="https://talks.dhcp.cfhn.it" title="Call for Participation"> CFP</a>
+            <a href="https://codeforheilbronn.de/verein-datenschutz" title="Datenschutz">DATENSCHUTZ</a>
             ]
         </span>
         <br>
@@ -139,68 +153,64 @@
 
         <h1>Die Heilbronner Chaos Party -- DHCP 2024</h1>
         <div>
-            <!-- <text> -->
                 <h2>Status of this Memo</h2>
-                <p>
+                <section>
                     This document specifies an Chaos Event protocol for the
                     Chaos community, and requests discussion and suggestions for
                     improvements.  Please refer to the current edition of "Die Heilbronner 
-                    Chaos Party"  (DHCP24) for the standardization state
-                    and status of this protocol.  Distribution of this memo is unlimited.
-                </p>
+                    Chaos Party" (DHCP24) for the standardization state
+                    and status of this protocol. Distribution of this memo is unlimited.
+                </section>
 
                 <h2>Copyright Notice</h2>
-                <p>
+                <section>
                     Copyright (C) The Chaos Society (1/1/1970).  All Rights Removed. 
-                </p>
+                </section>
 
                 <h2>Abstract</h2>
-                <p>
-                    <b>This event's official language is German.</b>
+                <section>
                     Die Heilbronner Chaos Party (DHCP) is an event organized by Code for Heilbronn
-                    (CFHN) for decentralized, distributed, collaborative, hyperinflated Chaos and F.U.N..
-                    The event will take place from the <b>31.10.2024 - 3.11.2024 in Heilbronn</b>.
+                    (CFHN) for decentralized, distributed, collaborative Chaos and F.U.N..
+                    The event will take place from the <b>31.10.2024 - 03.11.2024 in Heilbronn</b>.
                     It is intended for people and non-people of all kinds and species.
                     A very important feature are community based contributions such as
                     workshops and talks. 
                     DHCP will be used by the World-Wide Chaos community for (at least) this year. 
-                    This specification defines the protocol referred to as "DHCP24", 
-                    and is an update to RFC 2068 [33].
-                    If you want to contribute to the chaos by adding a talk or workshop
-                    please follow the official RFC found <a href="https://talks.dhcp.cfhn.it/"> here</a>.
-                </p>
-                
+                    This specification defines the protocol referred to as "DHCP24".
+                </section>
+
                 <h2><b>Table of Contents</b></h2>
-                <p>
+                <section class="toc">
                     <a href="#section-1">1</a>&nbsp;&nbsp;&nbsp;Introduction <br>
                     <a href="#section-1.1">1.1</a>&nbsp;&nbsp;&nbsp;Purpose <br>
                     <a href="#section-1.2">1.2</a>&nbsp;&nbsp;&nbsp;Requirements <br>
                     <a href="#section-1.3">1.3</a>&nbsp;&nbsp;&nbsp;Terminology <br>
+                    <a href="#section-1.4">1.4</a>&nbsp;&nbsp;&nbsp;Overall Operation <br>
                     <a href="#section-2">2</a>&nbsp;&nbsp;&nbsp;Tickets <br>
                     <a href="#section-3">3</a>&nbsp;&nbsp;&nbsp;Talks and Workshops <br>
-                    <a href="#section-4">4</a>&nbsp;&nbsp;&nbsp;Location <br>
-                    <a href="#section-5">5</a>&nbsp;&nbsp;&nbsp;Existing <br>
-                    <a href="#section-6">6</a>&nbsp;&nbsp;&nbsp;Styleguide <br>
-                </p>
-                    
+                    <a href="#section-4">4</a>&nbsp;&nbsp;&nbsp;Date & Location <br>
+                    <a href="#section-5">5</a>&nbsp;&nbsp;&nbsp;Styleguide <br>
+                    <a href="#section-5.1">5.1</a>&nbsp;&nbsp;&nbsp;Hashtag <br>
+                </section>
+
                 <h2><b><a id="section-1">1</a> Introduction</b></h2>
 
                 <h2><b><a id="section-1.1">1.1</a> Purpose</b></h2>
-                <p>
-                    DHCP24 an event organized by CFHN
-                    for decentralized, distributed, collaborative, hyperinflated Chaos and F.U.N..
-                    DHCP24 is designed to provide all sorts of added cultural value. It is intended to provide people with cognitive challenges through talks and workshops,
-                    but also so called Capture The Flags (CTF).<br>
-                    The first proposition of this event (DHCP24) with its simplest purpose, is being the handling of communication of, not only
-                    limited to humans or human-like beings, but also not further defined intelligent beings. (something mit mate as main nutrition source). 
-                
-                </p>
-                    <h2><b><a id="section-1.2">1.2</a> Requirements</b></h2>
-                <p>
+                <section>
+                    DHCP24 an event organized by Code for Heilbronn e.V.
+                    for decentralized, distributed, collaborative Chaos and F.U.N..
+                    DHCP24 is designed to provide all sorts of cultural value. It is intended to
+                    provide cognitive challenges through talks and workshops,
+                    but also so-called Capture The Flags (CTF).
+                </section>
+
+                <h2><b><a id="section-1.2">1.2</a> Requirements</b></h2>
+                <section>
                     The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
                     "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
-                    document are to be interpreted as described in <a href="https://www.rfc-editor.org/rfc/rfc2119">RFC 2119</a> [<a href="#ref-1">1</a>].
-                    
+                    document are to be interpreted as described in
+                    <a href="https://www.rfc-editor.org/rfc/rfc2119">RFC 2119</a> [<a href="#ref-1">1</a>].
+
                     An attendee is not compliant if they fail to satisfy one or more
                     of the MUST or REQUIRED level requirements for the event it
                     attends. An attendee that satisfies all the MUST or REQUIRED
@@ -208,44 +218,88 @@
                     to be "unconditionally compliant"; one that satisfies all the MUST
                     level requirements but not all the SHOULD level requirements for its
                     event is said to be "conditionally compliant."
-                </p>
+                </section>
 
                 <h2><b><a id="section-1.3">1.3</a> Terminology</b></h2>
+                <section>
+                    <ul>
+                        <li>CFHN
+                            <ul>
+                                <li>Code for Heilbronn</li>
+                            </ul>
+                        </li>
+                        <li>DHCP24
+                            <ul>
+                                <li>Die Heilbronner Chaos Party 2024</li>
+                            </ul>
+                        </li>
+                        <li>TBD
+                            <ul>
+                                <li>To be determined</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+
+                <h2><b><a id="section-1.4">1.4</a> Overall Operation</b></h2>
+                <section>
+                    Creatures from various places gather at the event location and date specified in
+                    <a href="#section-4">Date & Location</a> to spend time together.<br>
+                    A valid ticket MUST be provided.<br>
+                    <br>
+                    Compatibility of creatures with the <b><abbr title="German">DE</abbr></b> protocol
+                    is RECOMMENDED, however other protocols like <b><abbr title="English">EN</abbr></b> MAY
+                    be supported by other participants.<br>
+                    Creatures MUST be excellent to each other.<br>
+                    <br>
+                    Detailed information about the event is available in the
+                    <a href="https://wiki.dhcp.cfhn.it" title="Wiki">Wiki</a>.<br>
+                    <br>
+                    Updates about the event will be published at <a href="https://chaos.social/@cfhn">@cfhn@chaos.social</a>
+                    which you SHOULD follow to avoid important announcments like the ticket sale date.
+                </section>
 
                 <h2><b><a id="section-2">2</a> Tickets</b></h2>
-                <p>
-                    If you want to attend to this event you MUST aquire a ticket. You MAY also buy merch to appear cooler than other attendes that did not.
-                    Tickets are available on the <a href="https://tickets.dhcp.cfhn.it">linked ticket shop here</a>, or in the top bar of this webpage.
-                    <br>Ticket selling times:<br>
-                    -TBD <br>
+                <section>
+                    To attend this event you MUST acquire a ticket. You MAY also buy merch to appear cooler than other attendees who did not.
+                    Tickets are available on the <a href="https://tickets.dhcp.cfhn.it">ticket shop</a>.
+                    <br>
+                    Ticket selling times:<br>
+                    - TBD <br>
+                    <br>
                     Tickets are limited.
-                </p>
+                </section>
 
                 <h2><b><a id="section-3">3</a> Talks and Workshops</b></h2>
-                <p>
-                    For this event to properly function an attendee SHOULD propose a talk or workshop. To register one, <a href="https://talks.dhcp.cfhn.it">please follow this link</a>. 
+                <section>
+                    For this event to properly function an attendee SHOULD propose one or multiple talks and/or workshops.
+                    To register one, <a href="https://talks.dhcp.cfhn.it">please follow this link</a>. 
                     <b>Call for participation on 28.07.2024</b> until TBD.
-                </p>
+                </section>
 
-                <h2><b><a id="section-4">4</a> Location</b></h2>
-                <p>TBD</p>
+                <h2><b><a id="section-4">4</a> Date & Location</b></h2>
+                <section>
+                    The event will take place at <b><time datetime="2024-10-31/2024-11-03">31.10.2024 - 03.11.2024</time>
+                    somewhere in Heilbronn, Germany</b> (the exact location is TBD)
+                </section>
 
-                <h2><b><a id="section-5">5</a> Existing</b></h2>
-                <p>TBD</p>
-
-                <h2><b><a id="section-6">6</a> Styleguide</b></h2>
-                <p>
+                <h2><b><a id="section-5">5</a> Styleguide</b></h2>
+                <section>
                     Short: retro.<br>
                     Long: TBD
-                </p>
+                </section>
+
+                <h2><b><a id="section-5.1">5.1</a> Hashtag</b></h2>
+                <section>
+                    Any posts about the event SHOULD include the official hashtag "<b>#DHCP24</b>".<br>
+                    The hashtag "#DHCP" MUST NOT be used to avoid ambiguity with the "Dynamic Host Configuration Protocol" as defined by RFC 2131
+                </section>
 
                 <h2><b>X.X References</b></h2>
-                <p>
+                <section>
                     [<a id="ref-1">1</a>] Bradner, S., "Key words for use in RFCs to Indicate Requirement
                     Levels", <a href="https://www.rfc-editor.org/bcp/bcp14">BCP 14</a>, <a href="https://www.rfc-editor.org/rfc/rfc2119">RFC 2119</a>, March 1997.
-                </p>
-            
-            <!-- </text> -->
+                </section>
         </div>
     </body>
 </html>
