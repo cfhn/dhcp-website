@@ -78,9 +78,7 @@
                     return preparedGradient[Math.min(gradient.length - 1, Math.round(val))];
                 }
     
-                const renderText = (node, ctx) => {
-                    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    
+                const renderText = (node, imageData) => {
                     let txt = `<div>`;
                     for (let y = 0; y < height; y++) {
                         txt += `<span>`;
@@ -96,8 +94,24 @@
                 let running = false;
     
                 const frame = () => requestAnimationFrame(() => {
-                    ctx.drawImage(video, 0, 0, width, height);
-                    renderText(textVideo, ctx);
+                    if (video.readyState >= 2) {
+                        ctx.fillStyle = '#f0f';
+                        ctx.fillRect(0, 0, width, height);
+                        
+                        ctx.drawImage(video, 0, 0, width, height);
+                        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+                        if (imageData.data[0] == 255 &&
+                            imageData.data[1] == 0 &&
+                            imageData.data[2] == 255) {
+                            // https://bugzilla.mozilla.org/show_bug.cgi?id=1526207
+                            console.error('could not draw video on canvas.');
+                            running = false;
+                            video.pause();
+                            return;
+                        }
+                        renderText(textVideo, imageData);
+                    }
     
                     if (matchMedia('(hover:hover)').matches && !textVideo.matches(':hover')) {
                         // dumb hack for chrome which does not reliably throw
