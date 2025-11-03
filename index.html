@@ -14,7 +14,7 @@
 
             body {
                 margin: 1em auto;
-                background-color: #e2c991;
+                background-color: #3d2c13;
                 font-family: monospace;
                 font-size: 10.5pt;
                 max-width: 80ch;
@@ -58,6 +58,29 @@
                 white-space: nowrap;
                 overflow-x: auto;
                 text-size-adjust: none;
+                color: #e2c991;
+            }
+
+            .warning {
+                background-color: #eea1a6;
+                border-left: 5px solid #ff69c5;
+                padding: 10px;
+                margin: 20px 0;
+            }
+
+            .main-content {
+                background-color: #e2c991;
+                padding: 48px 96px;
+                margin-top: 48px;
+                border: 1px solid #bd4145;
+            }
+
+            .link-bar {
+                color: #e2c991;
+            }
+
+            .link-bar a {
+                color: #e2c991;
             }
         </style>
         <script type="application/javascript">
@@ -158,7 +181,7 @@
         </script>
     </head>
     <body>
-        <span class="content">
+        <span class="link-bar">
             [&nbsp;<a href="https://codeforheilbronn.de" title="Code for Heilbronn">CFHN</a>&nbsp;]
             [&nbsp;<a href="https://tickets.dhcp.cfhn.it" title="Tickets">TICKETS</a>&nbsp;]
             [&nbsp;<a href="https://talks.dhcp.cfhn.it" title="Call for Participation">CFP</a>&nbsp;]
@@ -202,9 +225,14 @@
             </div>
         </div>
 
-        <h1>Die Heilbronner Chaos Party -- DHCP 2025</h1>
-        <div>
-                <h2>Status of this Memo</h2>
+        <div class="main-content">
+            <h1>Die Heilbronner Chaos Party -- DHCP 2025</h1>
+            <div class="warning">
+                This page contains the state for DHCP2025 - stay tuned for DHCP26 updates
+            </div>
+
+
+            <h2>Status of this Memo</h2>
                 <section>
                     This document specifies an Chaos Event protocol for the
                     Chaos community, and requests discussion and suggestions for
