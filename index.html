@@ -1,186 +1,206 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>DHCP - 30.10.20.26 </title>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="viewport" content="width=800">
-        <link rel="icon" href="./favicon.ico" type="image/png">
 
-        <style type="text/css">
-            * {
-                margin: 0;
-                padding: 0;
+<head>
+    <title>DHCP - 30.10.20.26 </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=800">
+    <link rel="icon" href="./favicon.ico" type="image/png">
+
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+
+            background-image: url("./background.svg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+
+        }
+
+        .text_body {
+            margin: 1em auto;
+            background-color: #00000000;
+            font-family: monospace;
+            font-size: 10.5pt;
+            max-width: 80ch;
+            text-align: left;
+            padding: 0 40px;
+        }
+
+        body section {
+            margin-bottom: 1lh;
+            margin-left: 3ch;
+        }
+
+        body ul {
+            list-style-type: none;
+            margin-left: 0;
+            padding-left: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1lh;
+        }
+
+        ul ul {
+            margin-left: 3ch;
+        }
+
+        h1,
+        h2 {
+            color: rgb(0, 0, 0);
+            font-family: monospace;
+            text-align: left;
+            margin-bottom: 1lh;
+        }
+
+        h1 {
+            font-size: 1em;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 1em;
+            font-weight: normal;
+        }
+
+        #text-video {
+            white-space: nowrap;
+            overflow-x: auto;
+            text-size-adjust: none;
+
+            color: #e2c991;
+        }
+
+        .warning {
+            background-color: #eea1a6;
+            border-left: 5px solid #ff69c5;
+            padding: 10px;
+            margin: 20px 0;
+        }
+
+        .main-content {
+            background-color: #e2c991;
+            padding: 48px 96px;
+            margin-top: 48px;
+            border: 2px solid #000000;
+        }
+
+        .link-bar {
+            color: #e2c991;
+        }
+
+        .link-bar a {
+            color: #e2c991;
+        }
+    </style>
+
+
+
+    <script type="application/javascript">
+        window.onload = () => {
+            // somewhat based on https://medium.com/@sasha.kub95/webcam-stream-to-ascii-art-with-javascript-2a2f9a39befb
+            const video = document.getElementById('video');
+            const textVideo = document.getElementById('text-video');
+            const canvas = document.getElementById('canvas-video');
+            const ctx = canvas.getContext('2d', { alpha: false, willReadFrequently: true });
+            const width = 80;
+            const height = 24;
+
+            canvas.width = width;
+            canvas.height = height;
+
+            const gradient = "@@@@##DDdHh4PpCCCccccccc........   ";    // gradient generated with: https://ideone.com/IYsHJm
+            const preparedGradient = gradient.replaceAll(' ', '\u00A0');
+
+            const getPixelGreyScale = (imageData, x, y) => {
+                const i = (y * imageData.width + x) * 4;
+                const data = imageData.data;
+                return (data[i] + data[i + 1] + data[i + 2]) / 3;
             }
 
-            body {
-                margin: 1em auto;
-                background-color: #3d2c13;
-                font-family: monospace;
-                font-size: 10.5pt;
-                max-width: 80ch;
-                text-align: left;
-                padding: 0 40px;
+            const getCharByScale = (scale) => {
+                const val = scale / 255 * gradient.length;
+                return preparedGradient[Math.min(gradient.length - 1, Math.round(val))];
             }
 
-            body section {
-                margin-bottom: 1lh;
-                margin-left: 3ch;
-            }
-
-            body ul {
-                list-style-type: none;
-                margin-left: 0;
-                padding-left: 0;
-                display: flex;
-                flex-direction: column;
-                gap: 1lh;
-            }
-            ul ul {
-                margin-left: 3ch;
-            }
-
-            h1, h2 {
-                color: rgb(58, 33, 10);
-                font-family: monospace;
-                text-align: left;
-                margin-bottom: 1lh;
-            }
-            h1 {
-                font-size: 1em;
-                text-align: center;
-            }
-            h2 {
-                font-size: 1em;
-                font-weight: normal;
-            }
-
-            #text-video {
-                white-space: nowrap;
-                overflow-x: auto;
-                text-size-adjust: none;
-                color: #e2c991;
-            }
-
-            .warning {
-                background-color: #eea1a6;
-                border-left: 5px solid #ff69c5;
-                padding: 10px;
-                margin: 20px 0;
-            }
-
-            .main-content {
-                background-color: #e2c991;
-                padding: 48px 96px;
-                margin-top: 48px;
-                border: 1px solid #bd4145;
-            }
-
-            .link-bar {
-                color: #e2c991;
-            }
-
-            .link-bar a {
-                color: #e2c991;
-            }
-        </style>
-        <script type="application/javascript">
-            window.onload = () => {
-                // somewhat based on https://medium.com/@sasha.kub95/webcam-stream-to-ascii-art-with-javascript-2a2f9a39befb
-                const video = document.getElementById('video');
-                const textVideo = document.getElementById('text-video');
-                const canvas = document.getElementById('canvas-video');
-                const ctx = canvas.getContext('2d', { alpha: false, willReadFrequently: true });
-                const width = 80;
-                const height = 24;
-    
-                canvas.width = width;
-                canvas.height = height;
-    
-                const gradient = "@#$+=-.  ";
-                const preparedGradient = gradient.replaceAll(' ', '\u00A0');
-    
-                const getPixelGreyScale = (imageData, x, y) => {
-                    const i = (y * imageData.width + x) * 4;
-                    const data = imageData.data;
-                    return (data[i] + data[i + 1] + data[i + 2]) / 3;
-                }
-    
-                const getCharByScale = (scale) => {
-                    const val = scale / 255 * gradient.length;
-                    return preparedGradient[Math.min(gradient.length - 1, Math.round(val))];
-                }
-    
-                const renderText = (node, imageData) => {
-                    let txt = `<div>`;
-                    for (let y = 0; y < height; y++) {
-                        txt += `<span>`;
-                        for (let x = 0; x < width; x++) {
-                            txt += getCharByScale(getPixelGreyScale(imageData, x, y));
-                        }
-                        txt += `</span><br>`;
+            const renderText = (node, imageData) => {
+                let txt = `<div>`;
+                for (let y = 0; y < height; y++) {
+                    txt += `<span>`;
+                    for (let x = 0; x < width; x++) {
+                        txt += getCharByScale(getPixelGreyScale(imageData, x, y));
                     }
-                    txt += `</div>`;
-                    node.innerHTML = txt;
+                    txt += `</span><br>`;
                 }
-    
-                let running = false;
-    
-                const frame = () => requestAnimationFrame(() => {
-                    if (video.readyState >= 2) {
-                        ctx.fillStyle = '#f0f';
-                        ctx.fillRect(0, 0, width, height);
-                        
-                        ctx.drawImage(video, 0, 0, width, height);
-                        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                txt += `</div>`;
+                node.innerHTML = txt;
+            }
 
-                        if (imageData.data[0] == 255 &&
-                            imageData.data[1] == 0 &&
-                            imageData.data[2] == 255) {
-                            // https://bugzilla.mozilla.org/show_bug.cgi?id=1526207
-                            console.error('could not draw video on canvas.');
-                            running = false;
-                            video.pause();
-                            return;
-                        }
-                        renderText(textVideo, imageData);
-                    }
-    
-                    if (matchMedia('(hover:hover)').matches && !textVideo.matches(':hover')) {
-                        // dumb hack for chrome which does not reliably throw
-                        // mouseleave for elements that are constantly updated...
+            let running = false;
+
+            const frame = () => requestAnimationFrame(() => {
+                if (video.readyState >= 2) {
+                    ctx.fillStyle = '#f0f';
+                    ctx.fillRect(0, 0, width, height);
+
+                    ctx.drawImage(video, 0, 0, width, height);
+                    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+                    if (imageData.data[0] == 255 &&
+                        imageData.data[1] == 0 &&
+                        imageData.data[2] == 255) {
+                        // https://bugzilla.mozilla.org/show_bug.cgi?id=1526207
+                        console.error('could not draw video on canvas.');
                         running = false;
                         video.pause();
+                        return;
                     }
-    
-                    if (running)
-                        frame();
-                });
-    
-                textVideo.addEventListener('click', () => {
-                    if (running)
-                        return;
-                    running = true;
-                    video.play();
-                    frame();
-                });
-                textVideo.addEventListener('mouseenter', () => {
-                    if (running)
-                        return;
-                    running = true;
-                    video.play();
-                    frame();
-                });
+                    renderText(textVideo, imageData);
+                }
 
-                textVideo.addEventListener('mouseleave', (e) => {
-                    if (!running)
-                        return;
+                if (matchMedia('(hover:hover)').matches && !textVideo.matches(':hover')) {
+                    // dumb hack for chrome which does not reliably throw
+                    // mouseleave for elements that are constantly updated...
                     running = false;
                     video.pause();
-                });
-            };
-        </script>
-    </head>
-    <body>
+                }
+
+                if (running)
+                    frame();
+            });
+
+            textVideo.addEventListener('click', () => {
+                if (running)
+                    return;
+                running = true;
+                video.play();
+                frame();
+            });
+            textVideo.addEventListener('mouseenter', () => {
+                if (running)
+                    return;
+                running = true;
+                video.play();
+                frame();
+            });
+
+            textVideo.addEventListener('mouseleave', (e) => {
+                if (!running)
+                    return;
+                running = false;
+                video.pause();
+            });
+        };
+    </script>
+</head>
+
+<body>
+    <div class="text_body">
         <span class="link-bar">
             [&nbsp;<a href="https://codeforheilbronn.de" title="Code for Heilbronn">CFHN</a>&nbsp;]
             [&nbsp;<a href="https://tickets.dhcp.cfhn.it" title="Tickets">TICKETS</a>&nbsp;]
@@ -196,6 +216,168 @@
             <video id="video" muted loop preload="auto" src="out.mp4"></video>
             <canvas id="canvas-video"></canvas>
         </div>
+
+        <div class="main-content">
+            <h1>Die Heilbronner Chaos Party -- DHCP 2026</h1>
+            <h2>Status of this Memo</h2>
+            <section>
+                This document specifies an Chaos Event protocol for the
+                Chaos community, and requests discussion and suggestions for
+                improvements. Please refer to the current edition of "Die Heilbronner
+                Chaos Party" (DHCP26) for the standardization state
+                and status of this protocol. Distribution of this memo is unlimited.
+            </section>
+
+            <h2>Copyright Notice</h2>
+            <section>
+                Copyright (C) The Chaos Society (1/1/1970). All Rights Removed.
+            </section>
+
+            <h2>Abstract</h2>
+            <section>
+                Die Heilbronner Chaos Party (DHCP) is an event organized by Code for Heilbronn
+                (CFHN) for decentralized, distributed, collaborative Chaos and F.U.N..
+                The event will take place from the <b>30.10.2026 - 01.11.2026 in Heilbronn</b>.
+                It is intended for people and non-people of all kinds and species.
+                A very important feature are community based contributions such as
+                workshops and talks.
+                DHCP will be used by the World-Wide Chaos community for (at least) this year.
+                This specification defines the protocol referred to as "DHCP26".
+            </section>
+
+            <h2><b>Table of Contents</b></h2>
+            <section class="toc">
+                <a href="#section-1">1</a>&nbsp;&nbsp;&nbsp;Introduction <br>
+                <a href="#section-1.1">1.1</a>&nbsp;&nbsp;&nbsp;Purpose <br>
+                <a href="#section-1.2">1.2</a>&nbsp;&nbsp;&nbsp;Requirements <br>
+                <a href="#section-1.3">1.3</a>&nbsp;&nbsp;&nbsp;Terminology <br>
+                <a href="#section-1.4">1.4</a>&nbsp;&nbsp;&nbsp;Overall Operation <br>
+                <a href="#section-2">2</a>&nbsp;&nbsp;&nbsp;Tickets <br>
+                <a href="#section-3">3</a>&nbsp;&nbsp;&nbsp;Talks and Workshops <br>
+                <a href="#section-4">4</a>&nbsp;&nbsp;&nbsp;Date & Location <br>
+                <a href="#section-5">5</a>&nbsp;&nbsp;&nbsp;Styleguide <br>
+                <a href="#section-5.1">5.1</a>&nbsp;&nbsp;&nbsp;Hashtag <br>
+            </section>
+
+            <h2><b><a id="section-1">1</a> Introduction</b></h2>
+
+            <h2><b><a id="section-1.1">1.1</a> Purpose</b></h2>
+            <section>
+                DHCP26 an event organized by Code for Heilbronn e.V.
+                for decentralized, distributed, collaborative Chaos and F.U.N..
+                DHCP26 is designed to provide all sorts of cultural value. It is intended to
+                provide cognitive challenges through talks and workshops,
+                but also so-called Capture The Flags (CTF).
+            </section>
+
+            <h2><b><a id="section-1.2">1.2</a> Requirements</b></h2>
+            <section>
+                The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+                "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+                document are to be interpreted as described in
+                <a href="https://www.rfc-editor.org/rfc/rfc2119">RFC 2119</a> [<a href="#ref-1">1</a>].
+
+                An attendee is not compliant if they fail to satisfy one or more
+                of the MUST or REQUIRED level requirements for the event it
+                attends. An attendee that satisfies all the MUST or REQUIRED
+                level and all the SHOULD level requirements for its event is said
+                to be "unconditionally compliant"; one that satisfies all the MUST
+                level requirements but not all the SHOULD level requirements for its
+                event is said to be "conditionally compliant."
+            </section>
+
+            <h2><b><a id="section-1.3">1.3</a> Terminology</b></h2>
+            <section>
+                <ul>
+                    <li>CFHN
+                        <ul>
+                            <li>Code for Heilbronn</li>
+                        </ul>
+                    </li>
+                    <li>DHCP26
+                        <ul>
+                            <li>Die Heilbronner Chaos Party 2026</li>
+                        </ul>
+                    </li>
+                    <li>TBD
+                        <ul>
+                            <li>To be determined</li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+
+            <h2><b><a id="section-1.4">1.4</a> Overall Operation</b></h2>
+            <section>
+                Creatures from various places gather at the event location and date specified in
+                <a href="#section-4">Date & Location</a> to spend time together.<br>
+                A valid ticket MUST be provided.<br>
+                <br>
+                Compatibility of creatures with the <b><abbr title="German">DE</abbr></b> protocol
+                is RECOMMENDED, however other protocols like <b><abbr title="English">EN</abbr></b> MAY
+                be supported by other participants.<br>
+                Creatures MUST be excellent to each other.<br>
+                <br>
+                Detailed information about the event is available in the
+                <a href="https://wiki.dhcp.cfhn.it" title="Wiki">Wiki</a>.<br>
+                <br>
+                Updates about the event will be published at <a href="https://chaos.social/@cfhn">@cfhn@chaos.social</a>
+                which you SHOULD follow to avoid missing important announcments like the ticket sale date.
+            </section>
+
+            <h2><b><a id="section-2">2</a> Tickets</b></h2>
+            <section>
+                To attend this event you MUST acquire a ticket. You MAY also buy merch to appear cooler than other
+                attendees who did not.
+                Tickets will be available <a href="https://tickets.dhcp.cfhn.it/">here.</a>
+                <br>
+                Tickets will be limited.
+            </section>
+
+            <h2><b><a id="section-3">3</a> Talks and Workshops</b></h2>
+            <section>
+                At this event there will be talks and workshops. Attendees MAY visit talks and/or workshops.<br>
+                You may also help by proposing talks here soon™ <a
+                    href="https://talks.dhcp.cfhn.it/dhcp26/">https://talks.dhcp.cfhn.it/dhcp26/</a>. <br>
+                The schedule (informally known as "Fahrplan") can be found at <a
+                    href="https://talks.dhcp.cfhn.it/dhcp26/schedule/">soon™</a>.
+            </section>
+
+            <h2><b><a id="section-4">4</a> Date & Location</b></h2>
+            <section>
+                The event will take place <b><time datetime="2026-10-30/2026-11-01">30.10.2026 - 01.11.2026</time></b>
+                at<br>
+                <b>
+                    Hochschule Heilbronn<br>
+                    Max-Planck-Straße 39<br>
+                    74081 Heilbronn<br>
+                    Germany
+                </b>
+            </section>
+
+            <h2><b><a id="section-5">5</a> Styleguide</b></h2>
+            <section>
+                <a href="https://wiki.dhcp.cfhn.it/styleguide">https://wiki.dhcp.cfhn.it/styleguide</a><br>
+            </section>
+
+            <h2><b><a id="section-5.1">5.1</a> Hashtag</b></h2>
+            <section>
+                Any posts about the event SHOULD include the official hashtag "<b>#DHCP26</b>".<br>
+                The hashtag "#DHCP" MUST NOT be used to avoid ambiguity with the "Dynamic Host Configuration Protocol"
+                as defined by <a href="https://www.rfc-editor.org/rfc/rfc2131">RFC 2131</a> [<a href="#ref-2">2</a>].
+            </section>
+
+            <h2><b>X.X References</b></h2>
+            <section>
+                [<a id="ref-1">1</a>] S. Bradner, "Key words for use in RFCs to Indicate Requirement
+                Levels", <a href="https://www.rfc-editor.org/bcp/bcp14">BCP 14</a>, <a
+                    href="https://www.rfc-editor.org/rfc/rfc2119">RFC 2119</a>, March 1997. <br>
+                [<a id="ref-2">2</a>] R. Droms, "Dynamic Host Configuration Protocol",
+                <a href="https://www.rfc-editor.org/rfc/rfc2131">RFC 2131</a>, March 1997.
+            </section>
+        </div>
+
+
         <div id="text-video">
             <div>
                 <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br>
@@ -224,160 +406,7 @@
                 <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br>
             </div>
         </div>
+    </div>
+</body>
 
-
-        <div class="main-content">
-            <h1>Die Heilbronner Chaos Party -- DHCP 2026</h1>
-            <h2>Status of this Memo</h2>
-                <section>
-                    This document specifies an Chaos Event protocol for the
-                    Chaos community, and requests discussion and suggestions for
-                    improvements.  Please refer to the current edition of "Die Heilbronner 
-                    Chaos Party" (DHCP26) for the standardization state
-                    and status of this protocol. Distribution of this memo is unlimited.
-                </section>
-
-                <h2>Copyright Notice</h2>
-                <section>
-                    Copyright (C) The Chaos Society (1/1/1970).  All Rights Removed. 
-                </section>
-
-                <h2>Abstract</h2>
-                <section>
-                    Die Heilbronner Chaos Party (DHCP) is an event organized by Code for Heilbronn
-                    (CFHN) for decentralized, distributed, collaborative Chaos and F.U.N..
-                    The event will take place from the <b>30.10.2026 - 01.11.2026 in Heilbronn</b>.
-                    It is intended for people and non-people of all kinds and species.
-                    A very important feature are community based contributions such as
-                    workshops and talks. 
-                    DHCP will be used by the World-Wide Chaos community for (at least) this year. 
-                    This specification defines the protocol referred to as "DHCP26".
-                </section>
-
-                <h2><b>Table of Contents</b></h2>
-                <section class="toc">
-                    <a href="#section-1">1</a>&nbsp;&nbsp;&nbsp;Introduction <br>
-                    <a href="#section-1.1">1.1</a>&nbsp;&nbsp;&nbsp;Purpose <br>
-                    <a href="#section-1.2">1.2</a>&nbsp;&nbsp;&nbsp;Requirements <br>
-                    <a href="#section-1.3">1.3</a>&nbsp;&nbsp;&nbsp;Terminology <br>
-                    <a href="#section-1.4">1.4</a>&nbsp;&nbsp;&nbsp;Overall Operation <br>
-                    <a href="#section-2">2</a>&nbsp;&nbsp;&nbsp;Tickets <br>
-                    <a href="#section-3">3</a>&nbsp;&nbsp;&nbsp;Talks and Workshops <br>
-                    <a href="#section-4">4</a>&nbsp;&nbsp;&nbsp;Date & Location <br>
-                    <a href="#section-5">5</a>&nbsp;&nbsp;&nbsp;Styleguide <br>
-                    <a href="#section-5.1">5.1</a>&nbsp;&nbsp;&nbsp;Hashtag <br>
-                </section>
-
-                <h2><b><a id="section-1">1</a> Introduction</b></h2>
-
-                <h2><b><a id="section-1.1">1.1</a> Purpose</b></h2>
-                <section>
-                    DHCP26 an event organized by Code for Heilbronn e.V.
-                    for decentralized, distributed, collaborative Chaos and F.U.N..
-                    DHCP26 is designed to provide all sorts of cultural value. It is intended to
-                    provide cognitive challenges through talks and workshops,
-                    but also so-called Capture The Flags (CTF).
-                </section>
-
-                <h2><b><a id="section-1.2">1.2</a> Requirements</b></h2>
-                <section>
-                    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-                    "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
-                    document are to be interpreted as described in
-                    <a href="https://www.rfc-editor.org/rfc/rfc2119">RFC 2119</a> [<a href="#ref-1">1</a>].
-
-                    An attendee is not compliant if they fail to satisfy one or more
-                    of the MUST or REQUIRED level requirements for the event it
-                    attends. An attendee that satisfies all the MUST or REQUIRED
-                    level and all the SHOULD level requirements for its event is said
-                    to be "unconditionally compliant"; one that satisfies all the MUST
-                    level requirements but not all the SHOULD level requirements for its
-                    event is said to be "conditionally compliant."
-                </section>
-
-                <h2><b><a id="section-1.3">1.3</a> Terminology</b></h2>
-                <section>
-                    <ul>
-                        <li>CFHN
-                            <ul>
-                                <li>Code for Heilbronn</li>
-                            </ul>
-                        </li>
-                        <li>DHCP26
-                            <ul>
-                                <li>Die Heilbronner Chaos Party 2026</li>
-                            </ul>
-                        </li>
-                        <li>TBD
-                            <ul>
-                                <li>To be determined</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </section>
-
-                <h2><b><a id="section-1.4">1.4</a> Overall Operation</b></h2>
-                <section>
-                    Creatures from various places gather at the event location and date specified in
-                    <a href="#section-4">Date & Location</a> to spend time together.<br>
-                    A valid ticket MUST be provided.<br>
-                    <br>
-                    Compatibility of creatures with the <b><abbr title="German">DE</abbr></b> protocol
-                    is RECOMMENDED, however other protocols like <b><abbr title="English">EN</abbr></b> MAY
-                    be supported by other participants.<br>
-                    Creatures MUST be excellent to each other.<br>
-                    <br>
-                    Detailed information about the event is available in the
-                    <a href="https://wiki.dhcp.cfhn.it" title="Wiki">Wiki</a>.<br>
-                    <br>
-                    Updates about the event will be published at <a href="https://chaos.social/@cfhn">@cfhn@chaos.social</a>
-                    which you SHOULD follow to avoid missing important announcments like the ticket sale date.
-                </section>
-
-                <h2><b><a id="section-2">2</a> Tickets</b></h2>
-                <section>
-                    To attend this event you MUST acquire a ticket. You MAY also buy merch to appear cooler than other attendees who did not.
-                    Tickets are available <a href="https://tickets.dhcp.cfhn.it/">here.</a> </a>.
-                    <br>
-                    Tickets will be limited.
-                </section>
-
-                <h2><b><a id="section-3">3</a> Talks and Workshops</b></h2>
-                <section>
-                    At this event there will be talks and workshops. Attendees MAY visit talks and/or workshops.<br>
-                    You may also help by proposing talks here soon™ <a href="https://talks.dhcp.cfhn.it/dhcp26/">https://talks.dhcp.cfhn.it/dhcp26/</a>. <br>
-                    The schedule (informally known as "Fahrplan") can be found at <a href="https://talks.dhcp.cfhn.it/dhcp26/schedule/">soon™</a>.
-                </section>
-
-                <h2><b><a id="section-4">4</a> Date & Location</b></h2>
-                <section>
-                    The event will take place <b><time datetime="2026-10-30/2026-11-01">30.10.2026 - 01.11.2026</time></b> at<br>
-                    <b>
-                        Hochschule Heilbronn<br>
-                        Max-Planck-Straße 39<br>
-                        74081 Heilbronn<br>
-                        Germany
-                    </b>
-                </section>
-
-                <h2><b><a id="section-5">5</a> Styleguide</b></h2>
-                <section>
-                   <a href="https://wiki.dhcp.cfhn.it/styleguide">https://wiki.dhcp.cfhn.it/styleguide</a><br>
-                </section>
-
-                <h2><b><a id="section-5.1">5.1</a> Hashtag</b></h2>
-                <section>
-                    Any posts about the event SHOULD include the official hashtag "<b>#DHCP26</b>".<br>
-                    The hashtag "#DHCP" MUST NOT be used to avoid ambiguity with the "Dynamic Host Configuration Protocol" as defined by <a href="https://www.rfc-editor.org/rfc/rfc2131">RFC 2131</a> [<a href="#ref-2">2</a>].
-                </section>
-
-                <h2><b>X.X References</b></h2>
-                <section>
-                    [<a id="ref-1">1</a>] S. Bradner, "Key words for use in RFCs to Indicate Requirement
-                    Levels", <a href="https://www.rfc-editor.org/bcp/bcp14">BCP 14</a>, <a href="https://www.rfc-editor.org/rfc/rfc2119">RFC 2119</a>, March 1997. <br>
-                [<a id="ref-2">2</a>] R. Droms, "Dynamic Host Configuration Protocol", 
-                    <a href="https://www.rfc-editor.org/rfc/rfc2131">RFC 2131</a>, March 1997.
-                </section>
-        </div>
-    </body>
 </html>
